@@ -8,7 +8,7 @@ This Docker container implements a vsftpd server, with the following features:
  * Passive mode
  * Logging to a file or STDOUT.
 
-### Installation from [Docker registry hub](https://registry.hub.docker.com/r/uktricky/uktricky/pi-docker-ftpvsftpd/).
+### Installation from [Docker registry hub](https://hub.docker.com/repository/docker/uktricky/pi-docker-ftpvsftpd).
 
 You can download the image with the following command:
 
