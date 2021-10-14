@@ -1,21 +1,21 @@
-# uktricky/pi-docker-ftpserver
+![docker_logo](https://github.com/uktricky/pi-docker-base/blob/main/docker_139x115.png
 
-![docker_logo](https://github.com/uktricky/pi-docker-base/blob/main/docker_139x115.png)![docker_fauria_logo]
+# uktricky/pi-docker-ftpserver
 
 This Docker container implements a vsftpd server, with the following features:
 
- * Centos 7 base image.
+ * Centos 7 base image (arm32v7/centos:7)
  * vsftpd 3.0
  * Virtual users
  * Passive mode
  * Logging to a file or STDOUT.
 
-### Installation from [Docker registry hub](https://registry.hub.docker.com/r/fauria/vsftpd/).
+### Installation from [Docker registry hub](https://registry.hub.docker.com/r/uktricky/uktricky/pi-docker-ftpvsftpd/).
 
 You can download the image with the following command:
 
 ```bash
-docker pull fauria/vsftpd
+docker pull uktricky/pi-docker-ftpvsftpd
 ```
 
 Environment variables
@@ -139,27 +139,35 @@ Use cases
 2) Create a container in active mode using the default user account, with a binded data directory:
 
 ```bash
-docker run -d -p 21:21 -v /my/data/directory:/home/vsftpd --name vsftpd fauria/vsftpd
+docker run -d -p 21:21 -v /my/data/directory:/home/vsftpd --name ftpserver uktricky/pi-docker-ftpvsftpd
 # see logs for credentials:
-docker logs vsftpd
+docker logs ftpserver
 ```
 
 3) Create a **production container** with a custom user account, binding a data directory and enabling both active and passive mode:
 
 ```bash
-docker run -d -v /my/data/directory:/home/vsftpd \
--p 20:20 -p 21:21 -p 21100-21110:21100-21110 \
--e FTP_USER=myuser -e FTP_PASS=mypass \
--e PASV_ADDRESS=127.0.0.1 -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 \
---name vsftpd --restart=always fauria/vsftpd
+docker run \
+-d \
+-v /my/data/directory:/home/vsftpd \
+-p 20:20 \
+-p 21:21 \
+-p 21100-21110:21100-21110 \
+-e FTP_USER=myuser \
+-e FTP_PASS=mypass \
+-e PASV_ADDRESS=127.0.0.1 \
+-e PASV_MIN_PORT=21100 \
+-e PASV_MAX_PORT=21110 \
+--name ftpserver --restart=unless-stopped \
+uktricky/pi-docker-ftpvsftpd
 ```
 
 4) Manually add a new FTP user to an existing container:
 ```bash
-docker exec -i -t vsftpd bash
+docker exec -it ftpserver bash
 mkdir /home/vsftpd/myuser
 echo -e "myuser\nmypass" >> /etc/vsftpd/virtual_users.txt
 /usr/bin/db_load -T -t hash -f /etc/vsftpd/virtual_users.txt /etc/vsftpd/virtual_users.db
 exit
-docker restart vsftpd
+docker restart ftpserver
 ```
