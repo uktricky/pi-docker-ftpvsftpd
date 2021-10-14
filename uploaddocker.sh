@@ -1,2 +1,2 @@
-docker push uktricky/pi-docker-ftpserver2:latest
+docker push uktricky/pi-docker-ftpvsftpd:latest
 
