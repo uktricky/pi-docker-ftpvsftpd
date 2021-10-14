@@ -1,6 +1,6 @@
 # uktricky/pi-docker-ftpserver
 
-![docker_logo](https://raw.githubusercontent.com/uktricky/pi-docker-base/master/docker_139x115.png)![docker_fauria_logo]
+![docker_logo](https://github.com/uktricky/pi-docker-base/blob/main/docker_139x115.png)![docker_fauria_logo]
 
 This Docker container implements a vsftpd server, with the following features:
 
